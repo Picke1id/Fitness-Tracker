@@ -1,7 +1,10 @@
+// Setting Dependency
 const mongoose = require("mongoose");
 
+// Setting Mongoose Schema variable
 const Schema = mongoose.Schema;
 
+// Creating Method for Schema
 const workoutSchema = new Schema(
     {
         day: {
@@ -46,12 +49,15 @@ const workoutSchema = new Schema(
     }
 );
 
+// Creating virtual method to track duration of exercise(s)
 workoutSchema.virtual("totalDuration").get(function(){
     return this.exercises.reduce((total, exercise) => {
         return total + exercise.duration;
     }, 0);
 });
 
+// Creating variable to attach schema to database
 const Workout = mongoose.model("Workout", workoutSchema);
 
+// Exporting model to be used in index.js file
 module.exports = Workout;
